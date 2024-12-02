@@ -12,3 +12,19 @@ safe_reports = reports.map { |report| is_safe?(report) }
 result = safe_reports.count(true)
 
 puts "Part 1: #{result}"
+
+def is_safe2?(report)
+  return true if is_safe?(report)
+
+  report.each_index do |n|
+    return true if is_safe?(report.reject.with_index {|_, i| i == n })
+  end
+
+  false
+end
+
+safe_reports2 = reports.map { |report| is_safe2?(report) }
+
+result2 = safe_reports2.count(true)
+
+puts "Part 2: #{result2}"

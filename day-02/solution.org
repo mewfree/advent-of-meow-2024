@@ -39,3 +39,33 @@ result = safe_reports.count(true)
 #+begin_src ruby :results none :session day2
 puts "Part 1: #{result}"
 #+end_src
+
+#+begin_src ruby :results none :session day2
+def is_safe2?(report)
+  return true if is_safe?(report)
+
+  report.each_index do |n|
+    return true if is_safe?(report.reject.with_index {|_, i| i == n })
+  end
+
+  false
+end
+#+end_src
+
+#+begin_src ruby :results verbatim :session day2
+safe_reports2 = reports.map { |report| is_safe2?(report) }
+#+end_src
+
+#+RESULTS:
+: [true, false, false, true, true, true]
+
+#+begin_src ruby :results verbatim :session day2
+result2 = safe_reports2.count(true)
+#+end_src
+
+#+RESULTS:
+: 4
+
+#+begin_src ruby :results none :session day2
+puts "Part 2: #{result2}"
+#+end_src
