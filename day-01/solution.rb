@@ -3,9 +3,11 @@ lines = file.readlines.map(&:chomp)
 
 split_lines = lines.map(&:split)
 
-left = split_lines.map(&:first)
+transposed = split_lines.transpose
 
-right = split_lines.map(&:last)
+left = transposed.first
+
+right = transposed.last
 
 distances = left.sort.zip(right.sort).map { |i| (i.first.to_i - i.last.to_i).abs }
 
