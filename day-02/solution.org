@@ -1,0 +1,41 @@
+#+title: Advent of Code 2024 Day 2
+#+property: header-args :tangle solution.rb
+
+#+begin_src ruby :session day2
+reports = File.readlines("example.txt", chomp: true).map(&:split)
+#+end_src
+
+#+RESULTS:
+| 7 | 6 | 4 | 2 | 1 |
+| 1 | 2 | 7 | 8 | 9 |
+| 9 | 7 | 6 | 2 | 1 |
+| 1 | 3 | 2 | 4 | 5 |
+| 8 | 6 | 4 | 4 | 1 |
+| 1 | 3 | 6 | 7 | 9 |
+
+#+begin_src ruby :results none :session day2
+def is_safe?(report)
+  diffs = report.map(&:to_i).each_cons(2).map { |a, b| (a - b) }
+  all_increasing = diffs.all? { |i| i.between?(-3, -1) }
+  all_decreasing = diffs.all? { |i| i.between?(1, 3) }
+  all_increasing || all_decreasing
+end
+#+end_src
+
+#+begin_src ruby :results verbatim :session day2
+safe_reports = reports.map { |report| is_safe?(report) }
+#+end_src
+
+#+RESULTS:
+: [true, false, false, false, false, true]
+
+#+begin_src ruby :results verbatim :session day2
+result = safe_reports.count(true)
+#+end_src
+
+#+RESULTS:
+: 2
+
+#+begin_src ruby :results none :session day2
+puts "Part 1: #{result}"
+#+end_src
