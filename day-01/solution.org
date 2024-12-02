@@ -50,5 +50,30 @@ result = distances.sum
 : 11
 
 #+begin_src ruby :results none :session day1
-puts "Day 1: #{result}"
+puts "Part 1: #{result}"
+#+end_src
+
+#+begin_src ruby :session day1
+tally = right.tally
+#+end_src
+
+#+RESULTS:
+| 4 | =>1 | 3 | =>3 | 5 | =>1 | 9 | =>1 |
+
+#+begin_src ruby :session day1
+scores = left.map { |i| i.to_i * (tally[i] || 0) }
+#+end_src
+
+#+RESULTS:
+| 9 | 4 | 0 | 0 | 9 | 9 |
+
+#+begin_src ruby :session day1
+result2 = scores.sum
+#+end_src
+
+#+RESULTS:
+: 31
+
+#+begin_src ruby :results none :session day1
+puts "Part 2: #{result2}"
 #+end_src
