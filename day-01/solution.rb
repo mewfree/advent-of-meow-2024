@@ -1,15 +1,10 @@
-file = File.open("example.txt")
-lines = file.readlines.map(&:chomp)
+lines = File.readlines("example.txt", chomp: true)
 
 split_lines = lines.map(&:split)
 
-transposed = split_lines.transpose
+left, right = split_lines.transpose
 
-left = transposed.first
-
-right = transposed.last
-
-distances = left.sort.zip(right.sort).map { |i| (i.first.to_i - i.last.to_i).abs }
+distances = left.sort.zip(right.sort).map { |a, b| (a.to_i - b.to_i).abs }
 
 result = distances.sum
 
@@ -17,7 +12,7 @@ puts "Part 1: #{result}"
 
 tally = right.tally
 
-scores = left.map { |i| i.to_i * (tally[i] || 0) }
+scores = left.map { |i| i.to_i * tally.fetch(i, 0) }
 
 result2 = scores.sum
 
