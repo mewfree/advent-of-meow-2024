@@ -1,0 +1,34 @@
+#+title: Advent of Code 2024 Day 3
+#+property: header-args :tangle solution.rb
+
+Read content of memory:
+#+begin_src ruby :session day3
+memory = File.read("example.txt")
+#+end_src
+
+#+RESULTS:
+: xmul(2,4)%&mul[3,7]!@^do_not_mul(5,5)+mul(32,64]then(mul(11,8)mul(8,5))
+
+Extract numbers to be multiplied:
+#+begin_src ruby :session day3
+instructions = memory.scan(/mul\((\d{1,3}),(\d{1,3})\)/)
+#+end_src
+
+#+RESULTS:
+|  2 | 4 |
+|  5 | 5 |
+| 11 | 8 |
+|  8 | 5 |
+
+Multiply each pair and sum total:
+#+begin_src ruby :session day3
+result = instructions.map { |a, b| a.to_i * b.to_i }.sum
+#+end_src
+
+#+RESULTS:
+: 161
+
+Print result:
+#+begin_src ruby :results none :session day3
+puts "Part 1: #{result}"
+#+end_src
