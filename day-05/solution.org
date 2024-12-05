@@ -1,0 +1,76 @@
+#+title: Advent of Code 2024 Day 5
+#+property: header-args :tangle solution.rb
+
+Read content of manual, excluding empty space
+#+begin_src ruby :session day5
+manual = File.readlines("example.txt", chomp: true).reject { |e| e.empty? }
+#+end_src
+
+#+RESULTS:
+| 47 | 53 | 97 | 13 | 97 | 61 | 97 | 47 | 75 | 29 | 61 | 13 | 75 | 53 | 29 | 13 | 97 | 29 | 53 | 29 | 61 | 53 | 97 | 53 | 61 | 29 | 47 | 13 | 75 | 47 | 97 | 75 | 47 | 61 | 75 | 61 | 47 | 29 | 75 | 13 | 53 | 13 | 75,47,61,53,29 | 97,61,53,29,13 | 75,29,13 | 75,97,47,61,53 | 61,13,29 | 97,13,75,29,47 |
+
+Split manual in two sections, based on whether line has a pipe character or not (could have also used the comma)
+#+begin_src ruby :results verbatim :session day5
+raw_rules, raw_pages = manual.partition { |x| x.include?('|') }
+#+end_src
+
+#+RESULTS:
+: [["47|53", "97|13", "97|61", "97|47", "75|29", "61|13", "75|53", "29|13", "97|29", "53|29", "61|53", "97|53", "61|29", "47|13", "75|47", "97|75", "47|61", "75|61", "47|29", "75|13", "53|13"], ["75,47,61,53,29", "97,61,53,29,13", "75,29,13", "75,97,47,61,53", "61,13,29", "97,13,75,29,47"]]
+
+Parsing rules
+#+begin_src ruby :results verbatim :session day5
+rules = raw_rules.map { |e| e.split('|').map { |i| i.to_i } }
+#+end_src
+
+#+RESULTS:
+: [[47, 53], [97, 13], [97, 61], [97, 47], [75, 29], [61, 13], [75, 53], [29, 13], [97, 29], [53, 29], [61, 53], [97, 53], [61, 29], [47, 13], [75, 47], [97, 75], [47, 61], [75, 61], [47, 29], [75, 13], [53, 13]]
+
+Parsing pages
+#+begin_src ruby :results verbatim :session day5
+pages = raw_pages.map { |e| e.split(',').map { |i| i.to_i } }
+#+end_src
+
+#+RESULTS:
+: [[75, 47, 61, 53, 29], [97, 61, 53, 29, 13], [75, 29, 13], [75, 97, 47, 61, 53], [61, 13, 29], [97, 13, 75, 29, 47]]
+
+Pages are not valid if there's a rule invalidating the order
+#+begin_src ruby :results none :session day5
+def valid?(rules, update)
+  rules.each do |p1, p2|
+    next if !update.include?(p1) || !update.include?(p2)
+    return false if update.index(p1) > update.index(p2)
+  end
+
+  true
+end
+#+end_src
+
+Select only valid pages
+#+begin_src ruby :session day5
+valid_pages = pages.select { |p| valid?(rules, p) }
+#+end_src
+
+#+RESULTS:
+| 75 | 47 | 61 | 53 | 29 |
+| 97 | 61 | 53 | 29 | 13 |
+| 75 | 29 | 13 |    |    |
+
+Only return middle pages
+#+begin_src ruby :session day5
+middle_pages = valid_pages.map { |pages| pages[pages.length / 2] }
+#+end_src
+
+#+RESULTS:
+| 61 | 53 | 29 |
+
+Sum middle pages to get final result
+#+begin_src ruby :session day5
+result = middle_pages.sum
+#+end_src
+
+#+RESULTS:
+: 143
+
+#+begin_src ruby :results none :session day2
+puts "Part 1: #{result}"
+#+end_src

@@ -13,8 +13,8 @@
 - [X] Day 4 [2/2]
   - [X] Part 1
   - [X] Part 2
-- [ ] Day 5 [0/2]
-  - [ ] Part 1
+- [-] Day 5 [1/2]
+  - [X] Part 1
   - [ ] Part 2
 - [ ] Day 6 [0/2]
   - [ ] Part 1
