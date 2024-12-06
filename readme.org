@@ -1,6 +1,6 @@
 #+title: Advent of Code 2024
 
-* Days done [16%]
+* Days done [20%]
 - [X] Day 1 [2/2]
   - [X] Part 1
   - [X] Part 2
@@ -13,9 +13,9 @@
 - [X] Day 4 [2/2]
   - [X] Part 1
   - [X] Part 2
-- [-] Day 5 [1/2]
+- [X] Day 5 [2/2]
   - [X] Part 1
-  - [ ] Part 2
+  - [X] Part 2
 - [ ] Day 6 [0/2]
   - [ ] Part 1
   - [ ] Part 2

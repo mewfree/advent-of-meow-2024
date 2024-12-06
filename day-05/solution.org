@@ -74,3 +74,52 @@ result = middle_pages.sum
 #+begin_src ruby :results none :session day2
 puts "Part 1: #{result}"
 #+end_src
+
+Reject *valid* updates
+#+begin_src ruby :session day5
+invalid_pages = pages.reject { |p| valid?(rules, p) }
+#+end_src
+
+#+RESULTS:
+| 75 | 97 | 47 | 61 | 53 |
+| 61 | 13 | 29 |    |    |
+| 97 | 13 | 75 | 29 | 47 |
+
+Find rule for sort pair, and sort by index of the rule
+#+begin_src ruby :results none :session day5
+def sort_page(rules, page)
+  page.sort do |a, b|
+    rule = rules.find { |x, y| [x, y].sort == [a, b].sort }
+    rule.index(a) <=> rule.index(b)
+  end
+end
+#+end_src
+
+#+begin_src ruby :session day5
+reordered_pages = invalid_pages.map { |page| sort_page(rules, page) }
+#+end_src
+
+#+RESULTS:
+| 97 | 75 | 47 | 61 | 53 |
+| 61 | 29 | 13 |    |    |
+| 97 | 75 | 47 | 29 | 13 |
+
+Only return middle pages
+#+begin_src ruby :session day5
+middle_pages2 = reordered_pages.map { |pages| pages[pages.length / 2] }
+#+end_src
+
+#+RESULTS:
+| 47 | 29 | 47 |
+
+Sum middle pages to get final result
+#+begin_src ruby :session day5
+result2 = middle_pages2.sum
+#+end_src
+
+#+RESULTS:
+: 123
+
+#+begin_src ruby :results none :session day2
+puts "Part 2: #{result2}"
+#+end_src
