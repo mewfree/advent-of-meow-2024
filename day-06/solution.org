@@ -1,0 +1,118 @@
+#+title: Advent of Code 2024 Day 6
+#+property: header-args :tangle solution.rb
+
+#+begin_src ruby :session day6
+map = File.readlines("example.txt", chomp: true).map(&:chars)
+#+end_src
+
+#+RESULTS:
+| . | . | . | . | # | . | . | . | . | . |
+| . | . | . | . | . | . | . | . | . | # |
+| . | . | . | . | . | . | . | . | . | . |
+| . | . | # | . | . | . | . | . | . | . |
+| . | . | . | . | . | . | . | # | . | . |
+| . | . | . | . | . | . | . | . | . | . |
+| . | # | . | . | ^ | . | . | . | . | . |
+| . | . | . | . | . | . | . | . | # | . |
+| # | . | . | . | . | . | . | . | . | . |
+| . | . | . | . | . | . | # | . | . | . |
+
+Find the starting row
+#+begin_src ruby :session day6
+y = map.find_index { |row| row.include?('^') }
+#+end_src
+
+#+RESULTS:
+: 6
+
+Find the starting column
+#+begin_src ruby :session day6 :padline no
+x = map[y].find_index('^')
+#+end_src
+
+#+RESULTS:
+: 4
+
+Define possible directions
+#+begin_src ruby :session day6
+direction_deltas = {
+  'up' => [-1, 0],
+  'right' => [0, 1],
+  'down' => [1, 0],
+  'left' => [0, -1],
+}
+
+directions = direction_deltas.keys.cycle
+direction = directions.next
+#+end_src
+
+#+RESULTS:
+: up
+
+Mark initial position as "visited"
+#+begin_src ruby :results none :session day6
+map[y][x] = 'X'
+#+end_src
+
+Visualizing map
+#+begin_src ruby :session day6 :tangle no
+map
+#+end_src
+
+#+RESULTS:
+| . | . | . | . | # | . | . | . | . | . |
+| . | . | . | . | . | . | . | . | . | # |
+| . | . | . | . | . | . | . | . | . | . |
+| . | . | # | . | . | . | . | . | . | . |
+| . | . | . | . | . | . | . | # | . | . |
+| . | . | . | . | . | . | . | . | . | . |
+| . | # | . | . | X | . | . | . | . | . |
+| . | . | . | . | . | . | . | . | # | . |
+| # | . | . | . | . | . | . | . | . | . |
+| . | . | . | . | . | . | # | . | . | . |
+
+Movement logic...
+#+begin_src ruby :results none :session day6
+loop do
+  dy, dx = direction_deltas[direction]
+  ny, nx = y + dy, x + dx
+
+  break if !ny.between?(0, map.length - 1)
+  break if !nx.between?(0, map.first.length - 1)
+
+  if map[ny][nx] == '#'
+    direction = directions.next
+  else
+    map[ny][nx] = 'X'
+    y, x = ny, nx
+  end
+end
+#+end_src
+
+Visualizing end map
+#+begin_src ruby :session day6 :tangle no
+map
+#+end_src
+
+#+RESULTS:
+| . | . | . | . | # | . | . | . | . | . |
+| . | . | . | . | X | X | X | X | X | # |
+| . | . | . | . | X | . | . | . | X | . |
+| . | . | # | . | X | . | . | . | X | . |
+| . | . | X | X | X | X | X | # | X | . |
+| . | . | X | . | X | . | X | . | X | . |
+| . | # | X | X | X | X | X | X | X | . |
+| . | X | X | X | X | X | X | X | # | . |
+| # | X | X | X | X | X | X | X | . | . |
+| . | . | . | . | . | . | # | X | . | . |
+
+#+begin_src ruby :session day6
+result = map.flatten.count('X')
+#+end_src
+
+#+RESULTS:
+: 41
+
+#+begin_src ruby :results none :session day6
+puts "Part 1: #{result}"
+#+end_src
