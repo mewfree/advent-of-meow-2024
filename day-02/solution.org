@@ -29,7 +29,7 @@ safe_reports = reports.map { |report| is_safe?(report) }
 #+RESULTS:
 : [true, false, false, false, false, true]
 
-#+begin_src ruby :results verbatim :session day2
+#+begin_src ruby :results verbatim :session day2 :padline no
 result = safe_reports.count(true)
 #+end_src
 
@@ -59,7 +59,7 @@ safe_reports2 = reports.map { |report| is_safe2?(report) }
 #+RESULTS:
 : [true, false, false, true, true, true]
 
-#+begin_src ruby :results verbatim :session day2
+#+begin_src ruby :results verbatim :session day2 :padline no
 result2 = safe_reports2.count(true)
 #+end_src
 

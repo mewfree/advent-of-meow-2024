@@ -1,9 +1,6 @@
 manual = File.readlines("example.txt", chomp: true).reject { |e| e.empty? }
-
 raw_rules, raw_pages = manual.partition { |x| x.include?('|') }
-
 rules = raw_rules.map { |e| e.split('|').map { |i| i.to_i } }
-
 pages = raw_pages.map { |e| e.split(',').map { |i| i.to_i } }
 
 def valid?(rules, update)
@@ -16,9 +13,7 @@ def valid?(rules, update)
 end
 
 valid_pages = pages.select { |p| valid?(rules, p) }
-
 middle_pages = valid_pages.map { |pages| pages[pages.length / 2] }
-
 result = middle_pages.sum
 
 puts "Part 1: #{result}"
@@ -33,9 +28,7 @@ def sort_page(rules, page)
 end
 
 reordered_pages = invalid_pages.map { |page| sort_page(rules, page) }
-
 middle_pages2 = reordered_pages.map { |pages| pages[pages.length / 2] }
-
 result2 = middle_pages2.sum
 
 puts "Part 2: #{result2}"

@@ -10,7 +10,7 @@ manual = File.readlines("example.txt", chomp: true).reject { |e| e.empty? }
 | 47 | 53 | 97 | 13 | 97 | 61 | 97 | 47 | 75 | 29 | 61 | 13 | 75 | 53 | 29 | 13 | 97 | 29 | 53 | 29 | 61 | 53 | 97 | 53 | 61 | 29 | 47 | 13 | 75 | 47 | 97 | 75 | 47 | 61 | 75 | 61 | 47 | 29 | 75 | 13 | 53 | 13 | 75,47,61,53,29 | 97,61,53,29,13 | 75,29,13 | 75,97,47,61,53 | 61,13,29 | 97,13,75,29,47 |
 
 Split manual in two sections, based on whether line has a pipe character or not (could have also used the comma)
-#+begin_src ruby :results verbatim :session day5
+#+begin_src ruby :results verbatim :session day5 :padline no
 raw_rules, raw_pages = manual.partition { |x| x.include?('|') }
 #+end_src
 
@@ -18,7 +18,7 @@ raw_rules, raw_pages = manual.partition { |x| x.include?('|') }
 : [["47|53", "97|13", "97|61", "97|47", "75|29", "61|13", "75|53", "29|13", "97|29", "53|29", "61|53", "97|53", "61|29", "47|13", "75|47", "97|75", "47|61", "75|61", "47|29", "75|13", "53|13"], ["75,47,61,53,29", "97,61,53,29,13", "75,29,13", "75,97,47,61,53", "61,13,29", "97,13,75,29,47"]]
 
 Parsing rules
-#+begin_src ruby :results verbatim :session day5
+#+begin_src ruby :results verbatim :session day5 :padline no
 rules = raw_rules.map { |e| e.split('|').map { |i| i.to_i } }
 #+end_src
 
@@ -26,7 +26,7 @@ rules = raw_rules.map { |e| e.split('|').map { |i| i.to_i } }
 : [[47, 53], [97, 13], [97, 61], [97, 47], [75, 29], [61, 13], [75, 53], [29, 13], [97, 29], [53, 29], [61, 53], [97, 53], [61, 29], [47, 13], [75, 47], [97, 75], [47, 61], [75, 61], [47, 29], [75, 13], [53, 13]]
 
 Parsing pages
-#+begin_src ruby :results verbatim :session day5
+#+begin_src ruby :results verbatim :session day5 :padline no
 pages = raw_pages.map { |e| e.split(',').map { |i| i.to_i } }
 #+end_src
 
@@ -56,7 +56,7 @@ valid_pages = pages.select { |p| valid?(rules, p) }
 | 75 | 29 | 13 |    |    |
 
 Only return middle pages
-#+begin_src ruby :session day5
+#+begin_src ruby :session day5 :padline no
 middle_pages = valid_pages.map { |pages| pages[pages.length / 2] }
 #+end_src
 
@@ -64,7 +64,7 @@ middle_pages = valid_pages.map { |pages| pages[pages.length / 2] }
 | 61 | 53 | 29 |
 
 Sum middle pages to get final result
-#+begin_src ruby :session day5
+#+begin_src ruby :session day5 :padline no
 result = middle_pages.sum
 #+end_src
 
@@ -105,7 +105,7 @@ reordered_pages = invalid_pages.map { |page| sort_page(rules, page) }
 | 97 | 75 | 47 | 29 | 13 |
 
 Only return middle pages
-#+begin_src ruby :session day5
+#+begin_src ruby :session day5 :padline no
 middle_pages2 = reordered_pages.map { |pages| pages[pages.length / 2] }
 #+end_src
 
@@ -113,7 +113,7 @@ middle_pages2 = reordered_pages.map { |pages| pages[pages.length / 2] }
 | 47 | 29 | 47 |
 
 Sum middle pages to get final result
-#+begin_src ruby :session day5
+#+begin_src ruby :session day5 :padline no
 result2 = middle_pages2.sum
 #+end_src
 

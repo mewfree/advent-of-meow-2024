@@ -10,7 +10,7 @@ memory = File.read("example.txt")
 : xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))
 
 Extract numbers to be multiplied:
-#+begin_src ruby :session day3
+#+begin_src ruby :session day3 :padline no
 instructions = memory.scan(/mul\((\d{1,3}),(\d{1,3})\)/)
 #+end_src
 
@@ -21,7 +21,7 @@ instructions = memory.scan(/mul\((\d{1,3}),(\d{1,3})\)/)
 |  8 | 5 |
 
 Multiply each pair and sum total:
-#+begin_src ruby :session day3
+#+begin_src ruby :session day3 :padline no
 result = instructions.map { |a, b| a.to_i * b.to_i }.sum
 #+end_src
 
