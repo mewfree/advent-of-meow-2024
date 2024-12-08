@@ -1,14 +1,15 @@
 #+title: Advent of Code 2024 Day 4
 #+property: header-args :tangle solution.rb
 
-#+begin_src ruby :session day4
+* Part 1
+#+begin_src ruby :session day4 :exports both
 grid = File.readlines("example.txt", chomp: true)
 #+end_src
 
 #+RESULTS:
 | MMMSXXMASM | MSAMXMSMSA | AMXSXMAAMM | MSAMASMSMX | XMASAMXAMM | XXAMMXXAMA | SMSMSASXSS | SAXAMASAAA | MAMMMXMMMM | MXMXAXMASX |
 
-#+begin_src ruby :session day4
+#+begin_src ruby :session day4 :exports both
 def count_word(grid)
   rows = grid.length
   cols = grid[0].length
@@ -51,11 +52,12 @@ result = count_word(grid)
 #+RESULTS:
 : 18
 
-#+begin_src ruby :results none :session day2
+#+begin_src ruby :results none :session day2 :exports none
 puts "Part 1: #{result}"
 #+end_src
 
-#+begin_src ruby :session day4
+* Part 2
+#+begin_src ruby :session day4 :exports both
 def count_x(grid)
   rows = grid.length
   cols = grid[0].length
@@ -87,6 +89,6 @@ result2 = count_x(grid)
 #+RESULTS:
 : 9
 
-#+begin_src ruby :results none :session day2
+#+begin_src ruby :results none :session day2 :exports none
 puts "Part 2: #{result2}"
 #+end_src

@@ -1,7 +1,8 @@
 #+title: Advent of Code 2024 Day 2
 #+property: header-args :tangle solution.rb
 
-#+begin_src ruby :session day2
+* Part 1
+#+begin_src ruby :session day2 :exports both
 reports = File.readlines("example.txt", chomp: true).map(&:split)
 #+end_src
 
@@ -22,24 +23,25 @@ def is_safe?(report)
 end
 #+end_src
 
-#+begin_src ruby :results verbatim :session day2
+#+begin_src ruby :results verbatim :session day2 :exports both
 safe_reports = reports.map { |report| is_safe?(report) }
 #+end_src
 
 #+RESULTS:
 : [true, false, false, false, false, true]
 
-#+begin_src ruby :results verbatim :session day2 :padline no
+#+begin_src ruby :results verbatim :session day2 :padline no :exports both
 result = safe_reports.count(true)
 #+end_src
 
 #+RESULTS:
 : 2
 
-#+begin_src ruby :results none :session day2
+#+begin_src ruby :results none :session day2 :exports none
 puts "Part 1: #{result}"
 #+end_src
 
+* Part 2
 #+begin_src ruby :results none :session day2
 def is_safe2?(report)
   return true if is_safe?(report)
@@ -52,20 +54,20 @@ def is_safe2?(report)
 end
 #+end_src
 
-#+begin_src ruby :results verbatim :session day2
+#+begin_src ruby :results verbatim :session day2 :exports both
 safe_reports2 = reports.map { |report| is_safe2?(report) }
 #+end_src
 
 #+RESULTS:
 : [true, false, false, true, true, true]
 
-#+begin_src ruby :results verbatim :session day2 :padline no
+#+begin_src ruby :results verbatim :session day2 :padline no :exports both
 result2 = safe_reports2.count(true)
 #+end_src
 
 #+RESULTS:
 : 4
 
-#+begin_src ruby :results none :session day2
+#+begin_src ruby :results none :session day2 :exports none
 puts "Part 2: #{result2}"
 #+end_src

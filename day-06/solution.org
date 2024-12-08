@@ -1,7 +1,8 @@
 #+title: Advent of Code 2024 Day 6
 #+property: header-args :tangle solution.rb
 
-#+begin_src ruby :session day6
+* Part 1
+#+begin_src ruby :session day6 :exports both
 base_map = File.readlines("example.txt", chomp: true).map(&:chars).freeze
 map = base_map.map(&:dup)
 #+end_src
@@ -19,7 +20,7 @@ map = base_map.map(&:dup)
 | . | . | . | . | . | . | # | . | . | . |
 
 Find the starting row
-#+begin_src ruby :session day6
+#+begin_src ruby :session day6 :exports both
 y = map.find_index { |row| row.include?('^') }
 #+end_src
 
@@ -27,7 +28,7 @@ y = map.find_index { |row| row.include?('^') }
 : 6
 
 Find the starting column
-#+begin_src ruby :session day6 :padline no
+#+begin_src ruby :session day6 :padline no :exports both
 x = map[y].find_index('^')
 #+end_src
 
@@ -35,7 +36,7 @@ x = map[y].find_index('^')
 : 4
 
 Define possible directions
-#+begin_src ruby :session day6
+#+begin_src ruby :session day6 :exports both
 direction_deltas = {
   'up' => [-1, 0],
   'right' => [0, 1],
@@ -56,7 +57,7 @@ map[y][x] = 'X'
 #+end_src
 
 Visualizing map
-#+begin_src ruby :session day6 :tangle no
+#+begin_src ruby :session day6 :tangle no :exports both
 map
 #+end_src
 
@@ -91,7 +92,7 @@ end
 #+end_src
 
 Visualizing end map
-#+begin_src ruby :session day6 :tangle no
+#+begin_src ruby :session day6 :tangle no :exports both
 map
 #+end_src
 
@@ -107,17 +108,18 @@ map
 | # | X | X | X | X | X | X | X | . | . |
 | . | . | . | . | . | . | # | X | . | . |
 
-#+begin_src ruby :session day6
+#+begin_src ruby :session day6 :exports both
 result = map.flatten.count('X')
 #+end_src
 
 #+RESULTS:
 : 41
 
-#+begin_src ruby :results none :session day6
+#+begin_src ruby :results none :session day6 :exports none
 puts "Part 1: #{result}"
 #+end_src
 
+* Part 2
 For part 2, we need to place objects on the path and see how many would make the guard be stuck in a loop
 Objects can only be placed on the existing path of the guard, otherwise guard would never run into it
 #+begin_src ruby :results none :session day6
@@ -131,7 +133,7 @@ end
 #+end_src
 
 Visualizing previous_coordinates
-#+begin_src ruby :session day6 :tangle no
+#+begin_src ruby :session day6 :tangle no :exports both
 previous_coordinates
 #+end_src
 
@@ -220,13 +222,13 @@ previous_coordinates.each do |by, bx|
 end
 #+end_src
 
-#+begin_src ruby :session day6
+#+begin_src ruby :session day6 :exports both
 result2 = options.count
 #+end_src
 
 #+RESULTS:
 : 6
 
-#+begin_src ruby :results none :session day6
+#+begin_src ruby :results none :session day6 :exports none
 puts "Part 2: #{result2}"
 #+end_src

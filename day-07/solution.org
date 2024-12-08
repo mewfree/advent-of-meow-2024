@@ -1,8 +1,9 @@
 #+title: Advent of Code 2024 Day 7
 #+property: header-args :tangle solution.rb
 
+* Part 1
 Parsing input as a hash
-#+begin_src ruby :results verbatim :session day7
+#+begin_src ruby :results verbatim :session day7 :exports both
 calibrations = File.readlines("example.txt", chomp: true).inject({}) do |hash, calibration|
   test_value, numbers = calibration.split(': ')
   hash[test_value.to_i] = numbers.split.map(&:to_i)
@@ -13,7 +14,7 @@ end
 #+RESULTS:
 : {190=>[10, 19], 3267=>[81, 40, 27], 83=>[17, 5], 156=>[15, 6], 7290=>[6, 8, 6, 15], 161011=>[16, 10, 13], 192=>[17, 8, 14], 21037=>[9, 7, 18, 13], 292=>[11, 6, 16, 20]}
 
-#+begin_src ruby :results verbatim :session day7
+#+begin_src ruby :results verbatim :session day7 :exports both
 operators = [
   ->(a, b) { a + b },
   ->(a, b) { a * b },
@@ -38,18 +39,19 @@ results = calculate_results(calibrations, operators)
 #+RESULTS:
 : [[190], [3267], [], [], [], [], [], [], [292]]
 
-#+begin_src ruby :results verbatim :session day7 :padline no
+#+begin_src ruby :results verbatim :session day7 :padline no :exports both
 result = results.flatten.sum
 #+end_src
 
 #+RESULTS:
 : 3749
 
-#+begin_src ruby :results none :session day7
+#+begin_src ruby :results none :session day7 :exports none
 puts "Part 1: #{result}"
 #+end_src
 
-#+begin_src ruby :results verbatim :session day7
+* Part 2
+#+begin_src ruby :results verbatim :session day7 :exports both
 operators << ->(a, b) { (a.to_s + b.to_s).to_i }
 
 results2 = calculate_results(calibrations, operators)
@@ -58,13 +60,13 @@ results2 = calculate_results(calibrations, operators)
 #+RESULTS:
 : [[190], [3267], [], [156], [7290], [], [192], [], [292]]
 
-#+begin_src ruby :results verbatim :session day7 :padline no
+#+begin_src ruby :results verbatim :session day7 :padline no :exports both
 result2 = results2.flatten.sum
 #+end_src
 
 #+RESULTS:
 : 11387
 
-#+begin_src ruby :results none :session day7
+#+begin_src ruby :results none :session day7 :exports none
 puts "Part 2: #{result2}"
 #+end_src

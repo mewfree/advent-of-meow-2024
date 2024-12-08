@@ -1,8 +1,9 @@
 #+title: Advent of Code 2024 Day 3
 #+property: header-args :tangle solution.rb
 
+* Part 1
 Read content of memory:
-#+begin_src ruby :session day3
+#+begin_src ruby :session day3 :exports both
 memory = File.read("example.txt")
 #+end_src
 
@@ -10,7 +11,7 @@ memory = File.read("example.txt")
 : xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))
 
 Extract numbers to be multiplied:
-#+begin_src ruby :session day3 :padline no
+#+begin_src ruby :session day3 :padline no :exports both
 instructions = memory.scan(/mul\((\d{1,3}),(\d{1,3})\)/)
 #+end_src
 
@@ -21,20 +22,20 @@ instructions = memory.scan(/mul\((\d{1,3}),(\d{1,3})\)/)
 |  8 | 5 |
 
 Multiply each pair and sum total:
-#+begin_src ruby :session day3 :padline no
+#+begin_src ruby :session day3 :padline no :exports both
 result = instructions.map { |a, b| a.to_i * b.to_i }.sum
 #+end_src
 
 #+RESULTS:
 : 161
 
-Print result:
-#+begin_src ruby :results none :session day3
+#+begin_src ruby :results none :session day3 :exports none
 puts "Part 1: #{result}"
 #+end_src
 
+* Part 2
 Extract instructions and numbers to be multiplied:
-#+begin_src ruby :session day3
+#+begin_src ruby :session day3 :exports both
 instructions2 = memory.scan(/(do\(\)|don't\(\)|mul\((\d{1,3}),(\d{1,3})\))/)
 #+end_src
 
@@ -47,7 +48,7 @@ instructions2 = memory.scan(/(do\(\)|don't\(\)|mul\((\d{1,3}),(\d{1,3})\))/)
 | mul(8,5)  |   8 |   5 |
 
 Filter out from array anything between don't() and do():
-#+begin_src ruby :session day3
+#+begin_src ruby :session day3 :exports both
 filtered = instructions2.inject([]) do |result, element|
   @ignore = true if element == ["don't()", nil, nil]
   result << element unless @ignore
@@ -61,14 +62,13 @@ end
 | mul(8,5) | 8 | 5 |
 
 Multiply each pair and sum total:
-#+begin_src ruby :session day3
+#+begin_src ruby :session day3 :exports both
 result2 = filtered.map { |_, a, b| a.to_i * b.to_i }.sum
 #+end_src
 
 #+RESULTS:
 : 48
 
-Print result:
-#+begin_src ruby :results none :session day3
+#+begin_src ruby :results none :session day3 :exports none
 puts "Part 2: #{result2}"
 #+end_src
