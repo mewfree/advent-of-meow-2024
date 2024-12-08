@@ -2,7 +2,8 @@
 #+property: header-args :tangle solution.rb
 
 #+begin_src ruby :session day6
-map = File.readlines("example.txt", chomp: true).map(&:chars)
+base_map = File.readlines("example.txt", chomp: true).map(&:chars).freeze
+map = base_map.map(&:dup)
 #+end_src
 
 #+RESULTS:
@@ -115,4 +116,117 @@ result = map.flatten.count('X')
 
 #+begin_src ruby :results none :session day6
 puts "Part 1: #{result}"
+#+end_src
+
+For part 2, we need to place objects on the path and see how many would make the guard be stuck in a loop
+Objects can only be placed on the existing path of the guard, otherwise guard would never run into it
+#+begin_src ruby :results none :session day6
+previous_coordinates = []
+
+map.each_with_index do |row, row_index|
+  row.each_with_index do |element, col_index|
+    previous_coordinates << [row_index, col_index] if element == 'X'
+  end
+end
+#+end_src
+
+Visualizing previous_coordinates
+#+begin_src ruby :session day6 :tangle no
+previous_coordinates
+#+end_src
+
+#+RESULTS:
+| 1 | 4 |
+| 1 | 5 |
+| 1 | 6 |
+| 1 | 7 |
+| 1 | 8 |
+| 2 | 4 |
+| 2 | 8 |
+| 3 | 4 |
+| 3 | 8 |
+| 4 | 2 |
+| 4 | 3 |
+| 4 | 4 |
+| 4 | 5 |
+| 4 | 6 |
+| 4 | 8 |
+| 5 | 2 |
+| 5 | 4 |
+| 5 | 6 |
+| 5 | 8 |
+| 6 | 2 |
+| 6 | 3 |
+| 6 | 4 |
+| 6 | 5 |
+| 6 | 6 |
+| 6 | 7 |
+| 6 | 8 |
+| 7 | 1 |
+| 7 | 2 |
+| 7 | 3 |
+| 7 | 4 |
+| 7 | 5 |
+| 7 | 6 |
+| 7 | 7 |
+| 8 | 1 |
+| 8 | 2 |
+| 8 | 3 |
+| 8 | 4 |
+| 8 | 5 |
+| 8 | 6 |
+| 8 | 7 |
+| 9 | 7 |
+
+#+begin_src ruby :results none :session day6
+options = []
+
+previous_coordinates.each do |by, bx|
+  tracker = Set.new
+
+  # Reset map and directions
+  map = base_map.map(&:dup)
+  directions = direction_deltas.keys.cycle
+  direction = directions.next
+
+  y = map.find_index { |row| row.include?('^') }
+  x = map[y].find_index('^')
+
+  next if [x, y] == [bx, by]
+
+  # Mark bx, by as "blocked"
+  next if map[by].nil?
+  map[by][bx] = '#'
+
+  loop do
+    dy, dx = direction_deltas[direction]
+    ny, nx = y + dy, x + dx
+
+    break if !ny.between?(0, map.length - 1)
+    break if !nx.between?(0, map.first.length - 1)
+
+    if map[ny][nx] == '#'
+      direction = directions.next
+    else
+      y, x = ny, nx
+      id = [x, y, direction]
+      if tracker.include?(id)
+        options << [bx, by]
+        break
+      end
+      tracker << id
+    end
+  end
+end
+#+end_src
+
+#+begin_src ruby :session day6
+result2 = options.count
+#+end_src
+
+#+RESULTS:
+: 6
+
+#+begin_src ruby :results none :session day6
+puts "Part 2: #{result2}"
 #+end_src
