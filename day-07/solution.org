@@ -14,30 +14,31 @@ end
 : {190=>[10, 19], 3267=>[81, 40, 27], 83=>[17, 5], 156=>[15, 6], 7290=>[6, 8, 6, 15], 161011=>[16, 10, 13], 192=>[17, 8, 14], 21037=>[9, 7, 18, 13], 292=>[11, 6, 16, 20]}
 
 #+begin_src ruby :results verbatim :session day7
-operators = [:+, :*].freeze
-#+end_src
+operators = [
+  ->(a, b) { a + b },
+  ->(a, b) { a * b },
+]
 
-#+RESULTS:
-: [:+, :*]
-
-#+begin_src ruby :results verbatim :session day7
-results = calibrations.map do |test_value, numbers|
-  operation_sequences = operators.repeated_permutation(numbers.size - 1).to_a
-  result = operation_sequences.map do |operation_sequence|
-    result = numbers.first
-    numbers[1..].each_with_index do |number, index|
-      result = result.send(operation_sequence[index], number)
-    end
-    result if result == test_value
+def calculate_results(calibrations, operators)
+  calibrations.map do |test_value, numbers|
+    operation_sequences = operators.repeated_permutation(numbers.size - 1).to_a
+    operation_sequences.map do |operation_sequence|
+      result = numbers.first
+      numbers[1..].each_with_index do |number, index|
+        result = operation_sequence[index].call(result, number)
+      end
+      result if result == test_value
+    end.compact.uniq
   end
-  result.compact.uniq
 end
+
+results = calculate_results(calibrations, operators)
 #+end_src
 
 #+RESULTS:
 : [[190], [3267], [], [], [], [], [], [], [292]]
 
-#+begin_src ruby :results verbatim :session day7
+#+begin_src ruby :results verbatim :session day7 :padline no
 result = results.flatten.sum
 #+end_src
 
@@ -46,4 +47,24 @@ result = results.flatten.sum
 
 #+begin_src ruby :results none :session day7
 puts "Part 1: #{result}"
+#+end_src
+
+#+begin_src ruby :results verbatim :session day7
+operators << ->(a, b) { (a.to_s + b.to_s).to_i }
+
+results2 = calculate_results(calibrations, operators)
+#+end_src
+
+#+RESULTS:
+: [[190], [3267], [], [156], [7290], [], [192], [], [292]]
+
+#+begin_src ruby :results verbatim :session day7 :padline no
+result2 = results2.flatten.sum
+#+end_src
+
+#+RESULTS:
+: 11387
+
+#+begin_src ruby :results none :session day7
+puts "Part 2: #{result2}"
 #+end_src
