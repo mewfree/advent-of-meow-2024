@@ -1,78 +1,29 @@
 #+title: Advent of Code 2024
 
-* Days done [28%]
-- [X] Day 1 [2/2]
-  - [X] Part 1
-  - [X] Part 2
-- [X] Day 2 [2/2]
-  - [X] Part 1
-  - [X] Part 2
-- [X] Day 3 [2/2]
-  - [X] Part 1
-  - [X] Part 2
-- [X] Day 4 [2/2]
-  - [X] Part 1
-  - [X] Part 2
-- [X] Day 5 [2/2]
-  - [X] Part 1
-  - [X] Part 2
-- [X] Day 6 [2/2]
-  - [X] Part 1
-  - [X] Part 2
-- [X] Day 7 [2/2]
-  - [X] Part 1
-  - [X] Part 2
-- [ ] Day 8 [0/2]
-  - [ ] Part 1
-  - [ ] Part 2
-- [ ] Day 9 [0/2]
-  - [ ] Part 1
-  - [ ] Part 2
-- [ ] Day 10 [0/2]
-  - [ ] Part 1
-  - [ ] Part 2
-- [ ] Day 11 [0/2]
-  - [ ] Part 1
-  - [ ] Part 2
-- [ ] Day 12 [0/2]
-  - [ ] Part 1
-  - [ ] Part 2
-- [ ] Day 13 [0/2]
-  - [ ] Part 1
-  - [ ] Part 2
-- [ ] Day 14 [0/2]
-  - [ ] Part 1
-  - [ ] Part 2
-- [ ] Day 15 [0/2]
-  - [ ] Part 1
-  - [ ] Part 2
-- [ ] Day 16 [0/2]
-  - [ ] Part 1
-  - [ ] Part 2
-- [ ] Day 17 [0/2]
-  - [ ] Part 1
-  - [ ] Part 2
-- [ ] Day 18 [0/2]
-  - [ ] Part 1
-  - [ ] Part 2
-- [ ] Day 19 [0/2]
-  - [ ] Part 1
-  - [ ] Part 2
-- [ ] Day 20 [0/2]
-  - [ ] Part 1
-  - [ ] Part 2
-- [ ] Day 21 [0/2]
-  - [ ] Part 1
-  - [ ] Part 2
-- [ ] Day 22 [0/2]
-  - [ ] Part 1
-  - [ ] Part 2
-- [ ] Day 23 [0/2]
-  - [ ] Part 1
-  - [ ] Part 2
-- [ ] Day 24 [0/2]
-  - [ ] Part 1
-  - [ ] Part 2
-- [ ] Day 25 [0/2]
-  - [ ] Part 1
-  - [ ] Part 2
+| Day    | Part 1 | Part 2 | org-mode Notebook | Tangled code |
+|--------+--------+--------+-------------------+--------------|
+| Day 1  | ✅     | ✅     | [[file:./day-01/solution.org][solution.org]]      | [[file:./day-01/solution.rb][solution.rb]]  |
+| Day 2  | ✅     | ✅     | [[file:./day-02/solution.org][solution.org]]      | [[file:./day-02/solution.rb][solution.rb]]  |
+| Day 3  | ✅     | ✅     | [[file:./day-03/solution.org][solution.org]]      | [[file:./day-03/solution.rb][solution.rb]]  |
+| Day 4  | ✅     | ✅     | [[file:./day-04/solution.org][solution.org]]      | [[file:./day-04/solution.rb][solution.rb]]  |
+| Day 5  | ✅     | ✅     | [[file:./day-05/solution.org][solution.org]]      | [[file:./day-05/solution.rb][solution.rb]]  |
+| Day 6  | ✅     | ✅     | [[file:./day-06/solution.org][solution.org]]      | [[file:./day-06/solution.rb][solution.rb]]  |
+| Day 7  | ✅     | ✅     | [[file:./day-07/solution.org][solution.org]]      | [[file:./day-07/solution.rb][solution.rb]]  |
+| Day 8  |        |        |                   |              |
+| Day 9  |        |        |                   |              |
+| Day 10 |        |        |                   |              |
+| Day 11 |        |        |                   |              |
+| Day 12 |        |        |                   |              |
+| Day 13 |        |        |                   |              |
+| Day 14 |        |        |                   |              |
+| Day 15 |        |        |                   |              |
+| Day 16 |        |        |                   |              |
+| Day 17 |        |        |                   |              |
+| Day 18 |        |        |                   |              |
+| Day 19 |        |        |                   |              |
+| Day 20 |        |        |                   |              |
+| Day 21 |        |        |                   |              |
+| Day 22 |        |        |                   |              |
+| Day 23 |        |        |                   |              |
+| Day 24 |        |        |                   |              |
+| Day 25 |        |        |                   |              |
