@@ -19,8 +19,8 @@
 - [X] Day 6 [2/2]
   - [X] Part 1
   - [X] Part 2
-- [ ] Day 7 [0/2]
-  - [ ] Part 1
+- [-] Day 7 [1/2]
+  - [X] Part 1
   - [ ] Part 2
 - [ ] Day 8 [0/2]
   - [ ] Part 1
