@@ -1,0 +1,75 @@
+#+title: Advent of Code 2024 Day 9
+#+property: header-args :tangle solution.rb
+
+* Part 1
+#+begin_src ruby :session day9 :exports both
+disk_map = File.read("example.txt").chomp.split('').map(&:to_i)
+#+end_src
+
+#+RESULTS:
+| 2 | 3 | 3 | 3 | 1 | 3 | 3 | 1 | 2 | 1 | 4 | 1 | 4 | 1 | 3 | 1 | 4 | 0 | 2 |
+
+Digits are alternating between:
+- length of file
+- length of free space
+
+ID number:
+- starts with 0
+- increments for files only (not free space)
+
+Visualizing blocks:
+#+begin_src ruby :session day9 :exports both
+disk = disk_map.map.with_index {|length, index| index.even? ? (index / 2).to_s * length : '.' * length}.join
+#+end_src
+
+#+RESULTS:
+: 00...111...2...333.44.5555.6666.777.888899
+
+Disk fragmentation:
+#+begin_src ruby :results output :session day9 :exports both
+def fragment_disk(disk)
+  blocks = disk.chars
+  last_file_index = blocks.rindex { |block| block != '.' }
+  first_free_index = blocks.index('.')
+
+  return blocks.join if first_free_index > last_file_index
+
+  blocks[first_free_index], blocks[last_file_index] = blocks[last_file_index], blocks[first_free_index]
+  blocks.join
+end
+
+disk = loop do
+  fragmented_disk = fragment_disk(disk)
+  break fragmented_disk if fragmented_disk == disk
+  disk = fragmented_disk
+  puts disk
+end
+#+end_src
+
+#+RESULTS:
+#+begin_example
+009..111...2...333.44.5555.6666.777.88889.
+0099.111...2...333.44.5555.6666.777.8888..
+00998111...2...333.44.5555.6666.777.888...
+009981118..2...333.44.5555.6666.777.88....
+0099811188.2...333.44.5555.6666.777.8.....
+009981118882...333.44.5555.6666.777.......
+0099811188827..333.44.5555.6666.77........
+00998111888277.333.44.5555.6666.7.........
+009981118882777333.44.5555.6666...........
+009981118882777333644.5555.666............
+00998111888277733364465555.66.............
+0099811188827773336446555566..............
+#+end_example
+
+Calculating checksum:
+#+begin_src ruby :session day9 :exports both
+checksum = disk.chars.reject { |block| block == '.' }.map.with_index { |block, index| block.to_i * index}.sum
+#+end_src
+
+#+RESULTS:
+: 1928
+
+#+begin_src ruby :results none :session day9 :exports none
+puts "Part 1: #{checksum}"
+#+end_src
