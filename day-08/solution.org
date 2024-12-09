@@ -1,0 +1,74 @@
+#+title: Advent of Code 2024 Day 8
+#+property: header-args :tangle solution.rb
+
+* Part 1
+#+begin_src ruby :session day8 :exports both
+map = File.readlines("example.txt", chomp: true).map(&:chars)
+#+end_src
+
+#+RESULTS:
+| . | . | . | . | . | . | . | . | . | . | . | . |
+| . | . | . | . | . | . | . | . | 0 | . | . | . |
+| . | . | . | . | . | 0 | . | . | . | . | . | . |
+| . | . | . | . | . | . | . | 0 | . | . | . | . |
+| . | . | . | . | 0 | . | . | . | . | . | . | . |
+| . | . | . | . | . | . | A | . | . | . | . | . |
+| . | . | . | . | . | . | . | . | . | . | . | . |
+| . | . | . | . | . | . | . | . | . | . | . | . |
+| . | . | . | . | . | . | . | . | A | . | . | . |
+| . | . | . | . | . | . | . | . | . | A | . | . |
+| . | . | . | . | . | . | . | . | . | . | . | . |
+| . | . | . | . | . | . | . | . | . | . | . | . |
+
+Make a hash of antennas with coordinates
+#+begin_src ruby :results verbatim :session day8 :exports both
+antennas = map.each_with_index.with_object(Hash.new { |h, k| h[k] = [] }) do |(row, row_index), locations|
+  row.each_with_index do |cell, col_index|
+    locations[cell] << [col_index, row_index] unless cell == '.'
+  end
+end
+#+end_src
+
+#+RESULTS:
+: {"0"=>[[8, 1], [5, 2], [7, 3], [4, 4]], "A"=>[[6, 5], [8, 8], [9, 9]]}
+
+Calculate antinodes (make sure to stay within map bounds)
+#+begin_src ruby :results none :session day8
+def calculate_antinodes(antenna_pair, max_x, max_y)
+  x1, y1, x2, y2 = antenna_pair.flatten
+
+  delta_x = x2 - x1
+  delta_y = y2 - y1
+
+  antinode_1 = {x: (x1 - delta_x), y: (y1 - delta_y)}
+  antinode_2 = {x: (x2 + delta_x), y: (y2 + delta_y)}
+
+  antinode_1 = nil if antinode_1[:x] < 0 || antinode_1[:y] < 0 || antinode_1[:x] >= max_x || antinode_1[:y] >= max_y
+  antinode_2 = nil if antinode_2[:x] < 0 || antinode_2[:y] < 0 || antinode_2[:x] >= max_x || antinode_2[:y] >= max_y
+
+  [antinode_1, antinode_2]
+end
+#+end_src
+
+Pair up antennas and calculate antinodes for each
+#+begin_src ruby :results verbatim :session day8 :exports both
+antinodes = antennas.values.flat_map do |frequency|
+  frequency.combination(2).flat_map do |antenna_pair|
+    calculate_antinodes(antenna_pair, map[0].size, map.size)
+  end
+end.compact
+#+end_src
+
+#+RESULTS:
+: [{:x=>11, :y=>0}, {:x=>2, :y=>3}, {:x=>6, :y=>5}, {:x=>0, :y=>7}, {:x=>3, :y=>1}, {:x=>9, :y=>4}, {:x=>6, :y=>0}, {:x=>3, :y=>6}, {:x=>10, :y=>2}, {:x=>1, :y=>5}, {:x=>4, :y=>2}, {:x=>10, :y=>11}, {:x=>3, :y=>1}, {:x=>7, :y=>7}, {:x=>10, :y=>10}]
+
+#+begin_src ruby :results verbatim :session day8 :exports both
+result = antinodes.uniq.size
+#+end_src
+
+#+RESULTS:
+: 14
+
+#+begin_src ruby :results none :session day8 :exports none
+puts "Part 1: #{result}"
+#+end_src
