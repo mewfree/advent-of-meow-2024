@@ -9,7 +9,7 @@
 | Day 5  | ✅     | ✅     | [[file:./day-05/solution.org][solution.org]]      | [[file:./day-05/solution.rb][solution.rb]]  |
 | Day 6  | ✅     | ✅     | [[file:./day-06/solution.org][solution.org]]      | [[file:./day-06/solution.rb][solution.rb]]  |
 | Day 7  | ✅     | ✅     | [[file:./day-07/solution.org][solution.org]]      | [[file:./day-07/solution.rb][solution.rb]]  |
-| Day 8  | ✅     |        | [[file:./day-08/solution.org][solution.org]]      | [[file:./day-08/solution.rb][solution.rb]]  |
+| Day 8  | ✅     | ✅     | [[file:./day-08/solution.org][solution.org]]      | [[file:./day-08/solution.rb][solution.rb]]  |
 | Day 9  |        |        |                   |              |
 | Day 10 |        |        |                   |              |
 | Day 11 |        |        |                   |              |

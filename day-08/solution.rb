@@ -30,3 +30,40 @@ end.compact
 result = antinodes.uniq.size
 
 puts "Part 1: #{result}"
+
+def calculate_antinodes2(antenna_pair, max_x, max_y)
+  x1, y1, x2, y2 = antenna_pair.flatten
+
+  delta_x = x2 - x1
+  delta_y = y2 - y1
+
+  antinodes = []
+
+  mult = 0
+  loop do
+    antinode = {x: (x1 - delta_x * mult), y: (y1 - delta_y * mult)}
+    break if antinode[:x] < 0 || antinode[:y] < 0 || antinode[:x] >= max_x || antinode[:y] >= max_y
+    antinodes << antinode
+    mult += 1
+  end
+
+  mult = 0
+  loop do
+    antinode = {x: (x2 + delta_x * mult), y: (y2 + delta_y * mult)}
+    break if antinode[:x] < 0 || antinode[:y] < 0 || antinode[:x] >= max_x || antinode[:y] >= max_y
+    antinodes << antinode
+    mult += 1
+  end
+
+  antinodes
+end
+
+antinodes2 = antennas.values.flat_map do |frequency|
+  frequency.combination(2).flat_map do |antenna_pair|
+    calculate_antinodes2(antenna_pair, map[0].size, map.size)
+  end
+end.compact
+
+result2 = antinodes2.uniq.size
+
+puts "Part 2: #{result2}"

@@ -72,3 +72,55 @@ result = antinodes.uniq.size
 #+begin_src ruby :results none :session day8 :exports none
 puts "Part 1: #{result}"
 #+end_src
+
+* Part 2
+#+begin_src ruby :results none :session day8
+def calculate_antinodes2(antenna_pair, max_x, max_y)
+  x1, y1, x2, y2 = antenna_pair.flatten
+
+  delta_x = x2 - x1
+  delta_y = y2 - y1
+
+  antinodes = []
+
+  mult = 0
+  loop do
+    antinode = {x: (x1 - delta_x * mult), y: (y1 - delta_y * mult)}
+    break if antinode[:x] < 0 || antinode[:y] < 0 || antinode[:x] >= max_x || antinode[:y] >= max_y
+    antinodes << antinode
+    mult += 1
+  end
+
+  mult = 0
+  loop do
+    antinode = {x: (x2 + delta_x * mult), y: (y2 + delta_y * mult)}
+    break if antinode[:x] < 0 || antinode[:y] < 0 || antinode[:x] >= max_x || antinode[:y] >= max_y
+    antinodes << antinode
+    mult += 1
+  end
+
+  antinodes
+end
+#+end_src
+
+#+begin_src ruby :results verbatim :session day8 :exports both
+antinodes2 = antennas.values.flat_map do |frequency|
+  frequency.combination(2).flat_map do |antenna_pair|
+    calculate_antinodes2(antenna_pair, map[0].size, map.size)
+  end
+end.compact
+#+end_src
+
+#+RESULTS:
+: [{:x=>8, :y=>1}, {:x=>11, :y=>0}, {:x=>5, :y=>2}, {:x=>2, :y=>3}, {:x=>8, :y=>1}, {:x=>7, :y=>3}, {:x=>6, :y=>5}, {:x=>5, :y=>7}, {:x=>4, :y=>9}, {:x=>3, :y=>11}, {:x=>8, :y=>1}, {:x=>4, :y=>4}, {:x=>0, :y=>7}, {:x=>5, :y=>2}, {:x=>3, :y=>1}, {:x=>1, :y=>0}, {:x=>7, :y=>3}, {:x=>9, :y=>4}, {:x=>11, :y=>5}, {:x=>5, :y=>2}, {:x=>6, :y=>0}, {:x=>4, :y=>4}, {:x=>3, :y=>6}, {:x=>2, :y=>8}, {:x=>1, :y=>10}, {:x=>7, :y=>3}, {:x=>10, :y=>2}, {:x=>4, :y=>4}, {:x=>1, :y=>5}, {:x=>6, :y=>5}, {:x=>4, :y=>2}, {:x=>8, :y=>8}, {:x=>10, :y=>11}, {:x=>6, :y=>5}, {:x=>3, :y=>1}, {:x=>9, :y=>9}, {:x=>8, :y=>8}, {:x=>7, :y=>7}, {:x=>6, :y=>6}, {:x=>5, :y=>5}, {:x=>4, :y=>4}, {:x=>3, :y=>3}, {:x=>2, :y=>2}, {:x=>1, :y=>1}, {:x=>0, :y=>0}, {:x=>9, :y=>9}, {:x=>10, :y=>10}, {:x=>11, :y=>11}]
+
+#+begin_src ruby :results verbatim :session day8 :exports both
+result2 = antinodes2.uniq.size
+#+end_src
+
+#+RESULTS:
+: 34
+
+#+begin_src ruby :results none :session day8 :exports none
+puts "Part 2: #{result2}"
+#+end_src
